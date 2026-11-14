@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIP PC Software & Student Center Hub - 250 Apps Ultra-Fast Edition - Fida Hussain Chandio</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #03060f;
+      color: #f8fafc;
+      line-height: 1.5;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Falling Flowers / Glowing Petals Canvas - Optimized with will-change */
+    #petalCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      will-change: transform;
+    }
+
+    .botanical-left, .botanical-right {
+      position: fixed;
+      top: 70px;
+      width: 180px;
+      height: 300px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.45;
+      filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.7));
+    }
+    .botanical-left { left: -20px; }
+    .botanical-right { right: -20px; transform: scaleX(-1); }
+
+    header {
+      background: rgba(8, 13, 28, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.35);
+      box-shadow: 0 4px 25px rgba(56, 189, 248, 0.15);
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #38bdf8, #a855f7, #f472b6, #38bdf8);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glowGradient 5s ease infinite;
+    }
+    @keyframes glowGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .badge {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-weight: 800;
+      margin-left: 6px;
+      -webkit-text-fill-color: #fff;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.7);
+    }
+    .count-box {
+      background: rgba(19, 28, 49, 0.9);
+      border: 1px solid #38bdf8;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 30px 5% 20px;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.22), rgba(236, 72, 153, 0.12) 45%, transparent 72%);
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+      font-weight: 900;
+      margin-bottom: 6px;
+      color: #ffffff;
+      text-shadow: 0 0 18px rgba(56, 189, 248, 0.65);
+    }
+    .creator-subtitle {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 5px 18px;
+      border-radius: 30px;
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.18), rgba(56, 189, 248, 0.22), rgba(244, 114, 182, 0.18));
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #6ee7b7;
+      box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
+    }
+    .hero p { color: #cbd5e1; font-size: 0.92rem; margin-bottom: 18px; }
+
+    .search-box {
+      max-width: 750px;
+      margin: 0 auto 12px;
+      display: flex;
+      gap: 10px;
+    }
+    .search-box input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 14px;
+      border: 2px solid #38bdf8;
+      background: rgba(15, 23, 42, 0.95);
+      color: #fff;
+      font-size: 1.02rem;
+      outline: none;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+      transition: 0.2s;
+    }
+    .search-box input:focus {
+      border-color: #f472b6;
+      box-shadow: 0 0 25px rgba(244, 114, 182, 0.55);
+    }
+
+    .live-banner {
+      max-width: 750px;
+      margin: 0 auto 15px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px dashed #38bdf8;
+      border-radius: 12px;
+      padding: 12px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .live-banner.show { display: flex; }
+    .live-info { text-align: left; }
+    .live-info h4 { color: #38bdf8; font-size: 0.92rem; }
+    .live-info p { color: #94a3b8; font-size: 0.78rem; margin: 0; }
+    .live-btns { display: flex; gap: 8px; }
+    .web-btn {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #fff;
+      text-decoration: none;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    .web-btn.alt {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 5% 22px;
+      position: relative;
+      z-index: 2;
+    }
+    .cat-btn {
+      background: rgba(17, 24, 39, 0.88);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      color: #e2e8f0;
+      padding: 9px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .cat-btn:hover, .cat-btn.active {
+      background: linear-gradient(135deg, #2563eb, #9333ea);
+      color: #fff;
+      border-color: #f472b6;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 5% 50px; position: relative; z-index: 2; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: linear-gradient(145deg, rgba(15, 22, 38, 0.94), rgba(10, 16, 30, 0.96));
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      transition: transform 0.15s ease, border-color 0.15s ease;
+      position: relative;
+      overflow: hidden;
+      will-change: transform;
+    }
+    .card::before {
+      content: "🌸";
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      font-size: 0.8rem;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+    }
+    .card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .app-icon {
+      width: 44px; height: 44px; border-radius: 10px; background: #1e293b; padding: 5px; object-fit: contain;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    .app-meta h3 { font-size: 0.95rem; color: #fff; font-weight: 800; }
+    .tag {
+      font-size: 0.68rem; background: rgba(56, 189, 248, 0.18); color: #7dd3fc; padding: 2px 7px; border-radius: 4px; display: inline-block; margin-top: 2px; font-weight: 700;
+    }
+    .desc { font-size: 0.81rem; color: #94a3b8; margin-bottom: 10px; min-height: 36px; }
+    .info {
+      display: flex; justify-content: space-between; font-size: 0.73rem; color: #cbd5e1; border-top: 1px solid rgba(56, 189, 248, 0.18); padding-top: 6px; margin-bottom: 8px; font-weight: 600;
+    }
+    .btn-row { display: flex; gap: 6px; }
+    .dl-btn {
+      flex: 1; text-align: center;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff; text-decoration: none; padding: 8px 4px; border-radius: 7px; font-weight: 800; font-size: 0.78rem;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+      transition: 0.15s;
+    }
+    .dl-btn:hover {
+      background: linear-gradient(135deg, #34d399, #10b981);
+    }
+    .dl-btn.bit32 {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+    }
+    footer {
+      text-align: center; padding: 24px; border-top: 1px solid rgba(56, 189, 248, 0.25); color: #94a3b8; font-size: 0.85rem;
+      background: rgba(8, 13, 28, 0.95);
+      position: relative;
+      z-index: 2;
+    }
+    footer span {
+      color: #6ee7b7;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="petalCanvas"></canvas>
+
+  <svg class="botanical-left" viewBox="0 0 200 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 0 C40 90, 15 180, 60 280 C75 315, 45 340, 20 350" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="42" cy="65" rx="18" ry="8" transform="rotate(-30 42 65)" fill="#34d399"/>
+    <ellipse cx="22" cy="115" rx="16" ry="7" transform="rotate(25 22 115)" fill="#10b981"/>
+    <ellipse cx="52" cy="175" rx="20" ry="9" transform="rotate(-25 52 175)" fill="#6ee7b7"/>
+    <circle cx="58" cy="110" r="7" fill="#f472b6"/>
+  </svg>
+
+  <svg class="botanical-right" viewBox="0 0 200 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 0 C40 90, 15 180, 60 280 C75 315, 45 340, 20 350" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="42" cy="65" rx="18" ry="8" transform="rotate(-30 42 65)" fill="#34d399"/>
+    <ellipse cx="22" cy="115" rx="16" ry="7" transform="rotate(25 22 115)" fill="#10b981"/>
+    <ellipse cx="52" cy="175" rx="20" ry="9" transform="rotate(-25 52 175)" fill="#6ee7b7"/>
+    <circle cx="58" cy="110" r="7" fill="#f472b6"/>
+  </svg>
+
+  <header>
+    <div class="logo">🌸 VIP PC Software & Student Hub <span class="badge">250 MICROSOFT & VIP APPS</span></div>
+    <div class="count-box" id="counter">Total Apps: 250</div>
+  </header>
+
+  <section class="hero">
+    <h1>🌸 Ultra-Fast Student & Microsoft Center Portal 🌸</h1>
+    <div class="creator-subtitle">✨ Created by Fida Hussain Chandio (Phalkara Sher, Matli, Badin) ✨</div>
+    <p>Lightning-Fast Search & Direct Free Downloads for 250+ Microsoft Utilities, Office, Python, Photoshop & PC Tools</p>
+    
+    <div class="search-box">
+      <input type="text" id="searchInput" oninput="handleSearchThrottled()" placeholder="Lightning fast search across 250 software (Type any Microsoft app, Office, Python, etc.)..." />
+    </div>
+
+    <div class="live-banner" id="liveWebBanner">
+      <div class="live-info">
+        <h4 id="liveTitle">Searching Web for: ""</h4>
+        <p>Click below to search official & direct download links on Google / Microsoft</p>
+      </div>
+      <div class="live-btns">
+        <a id="googleDirectBtn" class="web-btn" href="#" target="_blank" rel="noopener">Search Official Download</a>
+        <a id="softpediaBtn" class="web-btn alt" href="#" target="_blank" rel="noopener">Direct Mirror Search</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="categories">
+    <button class="cat-btn active" onclick="setCat('All', this)">All Apps (250)</button>
+    <button class="cat-btn" onclick="setCat('Microsoft', this)">Microsoft & Sysinternals (100+)</button>
+    <button class="cat-btn" onclick="setCat('Student', this)">MS Office & Typing</button>
+    <button class="cat-btn" onclick="setCat('Coding', this)">Coding & Web</button>
+    <button class="cat-btn" onclick="setCat('Video', this)">Video & Audio</button>
+    <button class="cat-btn" onclick="setCat('Photo', this)">Photo & Print</button>
+    <button class="cat-btn" onclick="setCat('Gaming', this)">PC Gaming</button>
+    <button class="cat-btn" onclick="setCat('Shop', this)">Shop & USB Tools</button>
+    <button class="cat-btn" onclick="setCat('Security', this)">Antivirus & Security</button>
+    <button class="cat-btn" onclick="setCat('Daily', this)">Daily PC</button>
+  </div>
+
+  <main class="container">
+    <div class="grid" id="appGrid"></div>
+  </main>
+
+  <footer>
+    <p>© 2026 VIP PC Software & Student Center Hub — Designed & Built by <span>Fida Hussain Chandio</span> (Phalkara Sher, Matli) 🌸</p>
+  </footer>
+
+  <script>
+    // --- OPTIMIZED FLOWER CANVAS (GPU ACCELERATED & LIGHTWEIGHT) ---
+    (function() {
+      var canvas = document.getElementById("petalCanvas");
+      var ctx = canvas.getContext("2d", { alpha: true });
+      var width = canvas.width = window.innerWidth;
+      var height = canvas.height = window.innerHeight;
+
+      window.addEventListener("resize", function() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      var petals = [];
+      var colors = [
+        "rgba(244, 114, 182, 0.8)",
+        "rgba(56, 189, 248, 0.8)",
+        "rgba(52, 211, 153, 0.8)"
+      ];
+
+      for (var i = 0; i < 28; i++) {
+        petals.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 4 + 3,
+          speedY: Math.random() * 0.9 + 0.4,
+          speedX: Math.random() * 0.8 - 0.4,
+          angle: Math.random() * Math.PI * 2,
+          spin: (Math.random() - 0.5) * 0.03,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        for (var i = 0; i < petals.length; i++) {
+          var p = petals[i];
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.angle);
+          ctx.fillStyle = p.color;
+
+          ctx.beginPath();
+          ctx.arc(0, 0, p.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.restore();
+
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.angle += p.spin;
+
+          if (p.y > height + 10) { p.y = -10; p.x = Math.random() * width; }
+          if (p.x > width + 10) p.x = -10;
+          if (p.x < -10) p.x = width + 10;
+        }
+        requestAnimationFrame(draw);
+      }
+      requestAnimationFrame(draw);
+    })();
+
+    // --- 250 VERIFIED SOFTWARE CATALOG (150 + 100 MICROSOFT & SYSINTERNALS UTILITIES) ---
+    var softwareList = [
+      // === 1. MICROSOFT & SYSINTERNALS SPECIAL COLLECTION (100 APPS) ===
+      { name: "Microsoft PowerToys (Advanced Windows Utilities)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Latest v0.85", size: "98 MB", desc: "Supercharge Windows with FancyZones, Color Picker, Text Extractor & Awake.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://github.com/microsoft/PowerToys/releases/download/v0.85.0/PowerToysSetup-0.85.0-x64.exe", u32: "" },
+      { name: "Microsoft Sysinternals Suite", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2026", size: "48 MB", desc: "All official Sysinternals troubleshooting tools in one ultimate package.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/Files/SysinternalsSuite.zip", u32: "" },
+      { name: "Microsoft Process Explorer", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v17.06", size: "2.5 MB", desc: "Advanced Task Manager to see exactly which apps and DLLs are running.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/procexp.exe", u32: "https://live.sysinternals.com/procexp.exe" },
+      { name: "Microsoft Process Monitor (ProcMon)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v4.0", size: "2.1 MB", desc: "Real-time file system, registry, and process activity monitor.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/Procmon.exe", u32: "" },
+      { name: "Microsoft Autoruns", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v14.1", size: "3.2 MB", desc: "See what programs are configured to startup automatically when Windows boots.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/autoruns.exe", u32: "" },
+      { name: "Microsoft TCPView", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v4.2", size: "1.8 MB", desc: "Active network socket connections viewer and connection killer.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/tcpview.exe", u32: "" },
+      { name: "Microsoft SDelete (Secure Eraser)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.0", size: "500 KB", desc: "Securely overwrite deleted files so they can never be recovered.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/sdelete.exe", u32: "" },
+      { name: "Microsoft Disk2vhd", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.0", size: "1.2 MB", desc: "Create VHD (Virtual Hard Disk) images of your physical PC live.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/disk2vhd.exe", u32: "" },
+      { name: "Microsoft ZoomIt (Screen Magnifier & Annotator)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v5.1", size: "900 KB", desc: "Screen zoom, draw and presentation utility for teachers and trainers.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/zoomit.exe", u32: "" },
+      { name: "Microsoft PsExec", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.4", size: "1.1 MB", desc: "Execute processes remotely on other computers on your network.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/psexec.exe", u32: "" },
+      { name: "Microsoft Windows Terminal", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.22", size: "35 MB", desc: "Modern, fast, feature-rich terminal application for PowerShell and CMD.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://github.com/microsoft/terminal/releases/download/v1.22.2852.0/Microsoft.WindowsTerminal_8wekyb3d8bbwe.MsixBundle", u32: "" },
+      { name: "Microsoft PowerShell 7", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v7.4", size: "95 MB", desc: "Advanced cross-platform task automation and configuration framework.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://github.com/PowerShell/PowerShell/releases/download/v7.4.5/PowerShell-7.4.5-win-x64.msi", u32: "https://github.com/PowerShell/PowerShell/releases/download/v7.4.5/PowerShell-7.4.5-win-x86.msi" },
+      { name: "Microsoft .NET SDK 8.0", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v8.0", size: "185 MB", desc: "Build enterprise applications, web apps and microservices with .NET.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.403-windows-x64-installer", u32: "" },
+      { name: "Microsoft .NET Desktop Runtime 8.0", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v8.0", size: "54 MB", desc: "Run Windows desktop applications built on .NET 8.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://download.visualstudio.microsoft.com/download/pr/5b8f6734-d02f-48d6-95e0-5d66ef3c1c72/windowsdesktop-runtime-8.0.10-win-x64.exe", u32: "" },
+      { name: "Microsoft SQL Server Express 2022", cat: "Microsoft", catName: "Microsoft & Sys", ver: "2022", size: "280 MB", desc: "Free, feature-rich relational database management system for desktop & web.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://go.microsoft.com/fwlink/p/?linkid=2216019&clcid=0x409&culture=en-us&country=us", u32: "" },
+      { name: "Microsoft SQL Server Management Studio (SSMS)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v20", size: "680 MB", desc: "Integrated environment to manage SQL databases and queries.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://aka.ms/ssmsfullsetup", u32: "" },
+      { name: "Microsoft Azure Storage Explorer", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Latest", size: "165 MB", desc: "Manage Azure cloud storage blobs, tables, and queues easily.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://go.microsoft.com/fwlink/?LinkId=708343&clcid=0x409", u32: "" },
+      { name: "Microsoft Azure CLI", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Latest", size: "145 MB", desc: "Command-line tool to manage Azure cloud resources.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://aka.ms/installazurecliwindowsx64", u32: "" },
+      { name: "Microsoft Visual Studio Code", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.95", size: "95 MB", desc: "The premier Microsoft code editor for Python, HTML, JS and C#.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg", u64: "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user", u32: "" },
+      { name: "Microsoft Visual Studio Community 2022", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v17.11", size: "2.8 MB", desc: "Full-featured IDE for C++, C#, .NET, mobile and web development.", icon: "https://upload.wikimedia.org/wikipedia/commons/5/59/Visual_Studio_Icon_2022.svg", u64: "https://c2rsetup.officeapps.live.com/c2r/download.aspx?sku=Community&edition=community&release=LTSC2022&platform=x64&LogicalCorrelated=true", u32: "" },
+      { name: "Microsoft PC Manager", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v3.8", size: "25 MB", desc: "Official Microsoft tool to boost PC speed, clean junk, and manage security.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://pcmanager.microsoft.com/", u32: "" },
+      { name: "Microsoft Safety Scanner", cat: "Microsoft", catName: "Microsoft & Sys", ver: "2026", size: "145 MB", desc: "On-demand malware scanner provided officially by Microsoft.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://go.microsoft.com/fwlink/?LinkId=212732", u32: "" },
+      { name: "Microsoft Windows File Recovery", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "4.2 MB", desc: "Command-line tool to recover accidentally deleted files from hard drives/USBs.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9nxgdm6svh5f", u32: "" },
+      { name: "Microsoft To Do", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "45 MB", desc: "Task management app to organize daily student and center work.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9nblggh5r558", u32: "" },
+      { name: "Microsoft Whiteboard", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "65 MB", desc: "Collaborative digital canvas for brainstorming and online tutoring.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9msvkpw68894", u32: "" },
+      { name: "Microsoft Math Solver", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "32 MB", desc: "Solve algebra, calculus and equation problems instantly with AI.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9nblggh5nv58", u32: "" },
+      { name: "Microsoft Sticky Notes", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "18 MB", desc: "Quick notes on your Windows desktop synchronized across devices.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9nblggh4qghw", u32: "" },
+      { name: "Microsoft OneDrive", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Latest", size: "55 MB", desc: "Cloud file storage and backup for documents and homework.", icon: "https://upload.wikimedia.org/wikipedia/commons/1/12/Microsoft_OneDrive_%282019%E2%80%93present%29.svg", u64: "https://oneclient.sfx.dangerous.microsoft.com/updater/getinstaller.isf?file=OneDriveSetup.exe", u32: "" },
+      { name: "Microsoft Phone Link", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "40 MB", desc: "Connect your Android phone to Windows to sync photos, calls and messages.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9nmpj99vjvzw", u32: "" },
+      { name: "Microsoft Xbox App for Windows", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Latest", size: "120 MB", desc: "Play PC Game Pass games and connect with gamers.", icon: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg", u64: "https://www.xbox.com/en-US/apps/xbox-app-for-pc", u32: "" },
+      { name: "Microsoft DirectX End-User Runtime", cat: "Microsoft", catName: "Microsoft & Sys", ver: "June 2010", size: "95 MB", desc: "Essential legacy graphics libraries for classic PC games.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/en-us/download/details.aspx?id=35", u32: "https://www.microsoft.com/en-us/download/details.aspx?id=35" },
+      { name: "Microsoft Visual C++ Redistributable All-in-One", cat: "Microsoft", catName: "Microsoft & Sys", ver: "2024", size: "26 MB", desc: "Fixes missing DLL errors when launching games and applications.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/", u32: "" },
+      { name: "Microsoft Keyboard Layout Creator (MSKLC)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.4", size: "11 MB", desc: "Create custom keyboards for Sindhi, Urdu or regional languages.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/en-us/download/details.aspx?id=102134", u32: "" },
+      { name: "Microsoft SyncToy", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.1", size: "3.5 MB", desc: "Easy folder synchronization and backup tool for Windows folders.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/en-us/download/details.aspx?id=15155", u32: "" },
+      { name: "Microsoft Robocopy GUI", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v3.1", size: "1.5 MB", desc: "Graphical interface for robust and ultra-fast file copying.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/en-us/download/details.aspx?id=1565", u32: "" },
+      { name: "Microsoft Expression Web 4 (Free)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v4", size: "120 MB", desc: "Discontinued professional web design tool provided freely by Microsoft.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/en-us/download/details.aspx?id=36151", u32: "" },
+      { name: "Microsoft .NET Framework 3.5 (Offline Installer)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v3.5", size: "230 MB", desc: "Required legacy runtime for older Windows applications and games.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/en-us/download/details.aspx?id=21", u32: "" },
+      { name: "Microsoft .NET Framework 4.8", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v4.8", size: "68 MB", desc: "Standard runtime for Windows desktop productivity software.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://go.microsoft.com/fwlink/?linkid=2088631", u32: "" },
+      { name: "Microsoft XML Notepad", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.9", size: "2.1 MB", desc: "Simple tool for viewing and editing XML data files.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://github.com/microsoft/XmlNotepad/releases/download/2.9.3/XmlNotepad.msi", u32: "" },
+      { name: "Microsoft DebugDiag Analysis Tool", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v3", size: "45 MB", desc: "Troubleshoot IIS crashes, hangs, and memory leaks.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/en-us/download/details.aspx?id=104037", u32: "" },
+      { name: "Microsoft PortQry Command Line Port Scanner", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.0", size: "300 KB", desc: "Troubleshoot network connectivity and open TCP/UDP ports.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/en-us/download/details.aspx?id=17148", u32: "" },
+      { name: "Microsoft Baseline Security Analyzer (MBSA)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.3", size: "3 MB", desc: "Determine security misconfigurations on Windows computers.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/en-us/download/details.aspx?id=7558", u32: "" },
+      { name: "Microsoft Assessment and Deployment Kit (ADK)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Win 11", size: "1.2 MB", desc: "Tools to customize, assess, and deploy Windows operating systems.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://go.microsoft.com/fwlink/?linkid=2196158", u32: "" },
+      { name: "Microsoft Windows Driver Kit (WDK)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Win 11", size: "550 KB", desc: "Build, test, and debug device drivers for Windows.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://go.microsoft.com/fwlink/?linkid=2196230", u32: "" },
+      { name: "Microsoft ClearType Text Tuner", cat: "Microsoft", catName: "Microsoft & Sys", ver: "System", size: "Built-in", desc: "Optimize screen text readability and sharpness on LCD monitors.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/", u32: "" },
+      { name: "Microsoft Font Properties Extension", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.1", size: "600 KB", desc: "View font metadata and details inside Windows Explorer.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/en-us/download/details.aspx?id=17923", u32: "" },
+      { name: "Microsoft Network Monitor 3.4", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v3.4", size: "11 MB", desc: "Packet analyzer and network traffic capture utility.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/en-us/download/details.aspx?id=4865", u32: "" },
+      { name: "Microsoft Sync Center", cat: "Microsoft", catName: "Microsoft & Sys", ver: "System", size: "Built-in", desc: "Synchronize mobile files and offline network folders.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/", u32: "" },
+      { name: "Microsoft Windows File History", cat: "Microsoft", catName: "Microsoft & Sys", ver: "System", size: "Built-in", desc: "Automatic background file backup to external USB drives.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/", u32: "" },
+      { name: "Microsoft Steps Recorder", cat: "Microsoft", catName: "Microsoft & Sys", ver: "System", size: "Built-in", desc: "Record screen steps and clicks automatically for tutorial creation.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/", u32: "" },
+
+      // Additional 50 Microsoft & Sysinternals Utilities to reach 100 Microsoft apps
+      { name: "Microsoft Sysinternals PsKill", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.15", size: "500 KB", desc: "Terminate processes by name or process ID via command line.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/pskill.exe", u32: "" },
+      { name: "Microsoft Sysinternals PsList", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.4", size: "700 KB", desc: "List detailed information about running processes.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/pslist.exe", u32: "" },
+      { name: "Microsoft Sysinternals PsService", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.2", size: "600 KB", desc: "View and control Windows services remotely.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/psservice.exe", u32: "" },
+      { name: "Microsoft Sysinternals PsShutdown", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v3.0", size: "550 KB", desc: "Shutdown, reboot, or lock local or remote Windows systems.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/psshutdown.exe", u32: "" },
+      { name: "Microsoft Sysinternals PsInfo", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.8", size: "650 KB", desc: "Get system information about local or remote Windows machines.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/psinfo.exe", u32: "" },
+      { name: "Microsoft Sysinternals Sigcheck", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.9", size: "800 KB", desc: "Dump file version info and verify digital signatures.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/sigcheck.exe", u32: "" },
+      { name: "Microsoft Sysinternals Streams", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.6", size: "300 KB", desc: "Reveal NTFS alternate data streams on files downloaded from the web.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/streams.exe", u32: "" },
+      { name: "Microsoft Sysinternals Coreinfo", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v3.6", size: "400 KB", desc: "Show CPU topology, cache size and feature support.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/coreinfo.exe", u32: "" },
+      { name: "Microsoft Sysinternals RU (Registry Usage)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.2", size: "500 KB", desc: "View registry space usage for keys and subkeys.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/ru.exe", u32: "" },
+      { name: "Microsoft Sysinternals DU (Directory Usage)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.6", size: "450 KB", desc: "View disk space utilization across folders recursively.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/du.exe", u32: "" },
+      { name: "Microsoft Sysinternals RAMMap", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.6", size: "600 KB", desc: "Advanced physical memory usage analysis utility.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/rammap.exe", u32: "" },
+      { name: "Microsoft Sysinternals Contig", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.8", size: "350 KB", desc: "Single-file disk defragmenter for individual files.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/contig.exe", u32: "" },
+      { name: "Microsoft Sysinternals Ctrl2Cap", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.0", size: "200 KB", desc: "Keyboard filter driver that maps Caps Lock to Control.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/ctrl2cap.exe", u32: "" },
+      { name: "Microsoft Sysinternals Desktops", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.0", size: "300 KB", desc: "Create multiple virtual desktops on Windows.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/desktops.exe", u32: "" },
+      { name: "Microsoft Sysinternals Junction", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.07", size: "250 KB", desc: "Create NTFS junction points and symbolic links.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/junction.exe", u32: "" },
+      { name: "Microsoft Sysinternals MoveFile", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.02", size: "300 KB", desc: "Schedule file replacements and deletions on next reboot.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/movefile.exe", u32: "" },
+      { name: "Microsoft Sysinternals PendMoves", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.2", size: "350 KB", desc: "List pending file renames and deletions.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/pendmoves.exe", u32: "" },
+      { name: "Microsoft Sysinternals RegJump", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.01", size: "300 KB", desc: "Jump straight to a registry path specified in Regedit.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/regjump.exe", u32: "" },
+      { name: "Microsoft Sysinternals ShareEnum", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.6", size: "400 KB", desc: "Scan file shares on your network and view security permissions.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/shareenum.exe", u32: "" },
+      { name: "Microsoft Sysinternals ShellRunAs", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.02", size: "300 KB", desc: "Run programs as a different user via shell context menu.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/shellrunas.exe", u32: "" },
+      { name: "Microsoft Sysinternals Strings", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.5", size: "500 KB", desc: "Search for ANSI and Unicode strings in binary files.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/strings.exe", u32: "" },
+      { name: "Microsoft Sysinternals Whois", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.20", size: "450 KB", desc: "Look up domain registration details from command line.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/whois.exe", u32: "" },
+      { name: "Microsoft Sysinternals WinObj", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v3.01", size: "600 KB", desc: "Explore Object Manager namespace and global namespaces.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/winobj.exe", u32: "" },
+      { name: "Microsoft Sysinternals LiveKd", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v5.6", size: "1.2 MB", desc: "Live kernel debugging utility for Windows.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/livekd.exe", u32: "" },
+      { name: "Microsoft Sysinternals DebugView", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v4.9", size: "1.1 MB", desc: "Capture debug output on your local system or network.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/dbgview.exe", u32: "" },
+      { name: "Microsoft Sysinternals BgInfo", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v4.32", size: "1.8 MB", desc: "Display computer system specs directly on your desktop wallpaper.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/bginfo.exe", u32: "" },
+      { name: "Microsoft Sysinternals DiskExt", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.2", size: "350 KB", desc: "Display disk volume mapping and partition details.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/diskext.exe", u32: "" },
+      { name: "Microsoft Sysinternals VolumeId", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v2.1", size: "300 KB", desc: "Change FAT or NTFS drive volume serial numbers.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/volumeid.exe", u32: "" },
+      { name: "Microsoft Sysinternals LoadOrder", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.43", size: "400 KB", desc: "See the exact order in which device drivers load on boot.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/loadorder.exe", u32: "" },
+      { name: "Microsoft Sysinternals PsGetSid", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v1.46", size: "450 KB", desc: "Translate security IDs (SIDs) for users and groups.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/psgetsid.exe", u32: "" },
+      { name: "Microsoft Sysinternals NotMyFault", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v4.2", size: "550 KB", desc: "Crash, hang, and leak memory in Windows for testing crash dumps.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/notmyfault.exe", u32: "" },
+      { name: "Microsoft Sysinternals BlueScreen ScreenSaver", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v3.2", size: "300 KB", desc: "Simulate authentic Windows Blue Screen of Death (BSOD) screensaver.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://live.sysinternals.com/bluescreen.scr", u32: "" },
+      { name: "Microsoft Visual Studio Code Insiders", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Latest", size: "105 MB", desc: "Pre-release experimental build of VS Code with newest features.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg", u64: "https://code.visualstudio.com/sha/download?build=insider&os=win32-x64-user", u32: "" },
+      { name: "Microsoft Azure Cosmos DB Emulator", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Latest", size: "320 MB", desc: "Local emulator for developing Azure Cosmos DB apps offline.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://aka.ms/cosmosdb-emulator", u32: "" },
+      { name: "Microsoft Bot Framework Emulator", cat: "Microsoft", catName: "Microsoft & Sys", ver: "v4.14", size: "95 MB", desc: "Desktop application for debugging and testing chatbots.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://github.com/microsoft/BotFramework-Emulator/releases/download/v4.14.0/BotFramework-Emulator-4.14.0-setup.exe", u32: "" },
+      { name: "Microsoft Application Inspector", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Latest", size: "22 MB", desc: "Source code analyzer for features and characteristics.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://github.com/microsoft/ApplicationInspector/releases/download/v1.9.23/ApplicationInspector-windows-x64-1.9.23.zip", u32: "" },
+      { name: "Microsoft ML.NET Model Builder", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Latest", size: "45 MB", desc: "Add custom machine learning models into .NET apps easily.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://marketplace.visualstudio.com/items?itemName=MLNET.ModelBuilder", u32: "" },
+      { name: "Microsoft Dev Home", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "85 MB", desc: "Centralize development workflows, GitHub repos and machine status.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9ncwdngm48h4", u32: "" },
+      { name: "Microsoft Clipchamp Video Editor", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "140 MB", desc: "Official Microsoft video editor built into Windows for quick creation.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9p1j8s7cc7ww", u32: "" },
+      { name: "Microsoft Paint (Modern Win11 Paint)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "55 MB", desc: "Updated MS Paint with layers, transparency and AI background removal.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9pcfs5b6t72h", u32: "" },
+      { name: "Microsoft Notepad (Modern Win11 Notepad)", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "20 MB", desc: "Updated Notepad with dark mode, tabs and multi-window support.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9msmlrh6lzf3", u32: "" },
+      { name: "Microsoft Snipping Tool", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "25 MB", desc: "Advanced screenshot and screen video recording utility for Windows.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9mz95kl8sn0l", u32: "" },
+      { name: "Microsoft Sound Recorder", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "15 MB", desc: "Clean audio recording utility for lectures and voice notes.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9wzdncrfj3pt", u32: "" },
+      { name: "Microsoft Media Player for Windows 11", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "40 MB", desc: "Sleek music and video player replacing Groove Music and Windows Media Player.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9wzdncrfj3pr", u32: "" },
+      { name: "Microsoft Photos Legacy", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "65 MB", desc: "Classic Microsoft photo viewer with folders and fast editing.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9nvskjjjpssw", u32: "" },
+      { name: "Microsoft Windows Backup", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "10 MB", desc: "Backup folders, apps and settings to OneDrive effortlessly.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/", u32: "" },
+      { name: "Microsoft Quick Assist", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "12 MB", desc: "Securely assist friends or students with remote desktop viewing.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://apps.microsoft.com/detail/9p7bp5h945cd", u32: "" },
+      { name: "Microsoft Windows File Explorer Tabs", cat: "Microsoft", catName: "Microsoft & Sys", ver: "System", size: "Built-in", desc: "Multi-tab file browsing built right into Windows 11.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://www.microsoft.com/", u32: "" },
+      { name: "Microsoft Copilot AI Assistant", cat: "Microsoft", catName: "Microsoft & Sys", ver: "Official", size: "Official", desc: "AI-powered assistant integrated into Windows for writing and coding.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://copilot.microsoft.com/", u32: "" },
+
+      // === 2. STUDENT & OFFICE (15 APPS) ===
+      { name: "Microsoft Office 365 (Official Excel, Word, PPT)", cat: "Student", catName: "MS Office & Typing", ver: "Official 2026", size: "Free Web", desc: "Official Microsoft Excel, Word & PowerPoint — free online access & official Office setup.", icon: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Microsoft_Office_logo_%282019%E2%80%93present%29.svg", u64: "https://www.office.com/", u32: "https://setup.office.com/" },
+      { name: "Microsoft Excel (Free Official Web & Desktop)", cat: "Student", catName: "MS Office & Typing", ver: "Official", size: "Free Access", desc: "Official Microsoft Excel for formulas, mark sheets, data entry & center training.", icon: "https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg", u64: "https://www.microsoft.com/en-us/microsoft-365/free-office-online-for-the-web", u32: "https://www.office.com/launch/excel" },
+      { name: "Microsoft Word (Free Official Web & Desktop)", cat: "Student", catName: "MS Office & Typing", ver: "Official", size: "Free Access", desc: "Official Microsoft Word for applications, CVs, letters & center assignments.", icon: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg", u64: "https://www.office.com/launch/word", u32: "https://www.microsoft.com/en-us/microsoft-365/free-office-online-for-the-web" },
+      { name: "Microsoft PowerPoint (Free Official Web & Desktop)", cat: "Student", catName: "MS Office & Typing", ver: "Official", size: "Free Access", desc: "Official Microsoft PowerPoint for student presentations, slides & animations.", icon: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Microsoft_Office_PowerPoint_%282019%E2%80%93present%29.svg", u64: "https://www.office.com/launch/powerpoint", u32: "https://www.microsoft.com/en-us/microsoft-365/free-office-online-for-the-web" },
+      { name: "LibreOffice (100% Free Offline Excel, Word & PPT)", cat: "Student", catName: "MS Office & Typing", ver: "v24.8.2", size: "345 MB", desc: "Completely free offline installer for Excel sheets, Word docs & PowerPoint slides.", icon: "https://upload.wikimedia.org/wikipedia/commons/0/02/LibreOffice_Logo_Flat.svg", u64: "https://download.documentfoundation.org/libreoffice/stable/24.8.2/win/x86_64/LibreOffice_24.8.2_Win_x86-64.msi", u32: "https://download.documentfoundation.org/libreoffice/stable/24.8.2/win/x86/LibreOffice_24.8.2_Win_x86.msi" },
+      { name: "WPS Office (Free Offline Excel, Word & PPT)", cat: "Student", catName: "MS Office & Typing", ver: "v12.2", size: "210 MB", desc: "Exact MS Office look for Excel, Word, PowerPoint & PDF editing on Windows.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/4e/WPS_Office_logo.svg", u64: "https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/win/11720/WPSOffice_12.2.0.13489.exe", u32: "https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/win/11720/WPSOffice_12.2.0.13489.exe" },
+      { name: "Typing Master Pro (English Typing Tutor)", cat: "Student", catName: "MS Office & Typing", ver: "v11 Official", size: "19 MB", desc: "Official Typing Master for Windows to practice touch typing & increase WPM speed.", icon: "https://cdn-icons-png.flaticon.com/512/3067/3067260.png", u64: "https://www.typingmaster.com/typing-tutor/free-download.html", u32: "https://www.typingmaster.com/typing-tutor/free-download.html" },
+      { name: "Tipp10 (100% Free Open-Source Typing Tutor)", cat: "Student", catName: "MS Office & Typing", ver: "v3.3.0", size: "18 MB", desc: "Free offline touch-typing software with lessons, speed tests & finger guide.", icon: "https://cdn-icons-png.flaticon.com/512/2933/2933245.png", u64: "https://www.tipp10.com/en/download/getfile/3/", u32: "https://www.tipp10.com/en/download/getfile/3/" },
+      { name: "Klavaro Touch Typing Tutor", cat: "Student", catName: "MS Office & Typing", ver: "v3.14", size: "15 MB", desc: "Flexible touch typing tutor supporting multiple keyboard layouts & speed charts.", icon: "https://cdn-icons-png.flaticon.com/512/2933/2933245.png", u64: "https://sourceforge.net/projects/klavaro/files/latest/download", u32: "" },
+      { name: "InPage Urdu / Sindhi / Arabic Typing", cat: "Student", catName: "MS Office & Typing", ver: "Urdu/Sindhi", size: "28 MB", desc: "Standard Urdu & Sindhi composing software for newspapers, books & center students.", icon: "https://cdn-icons-png.flaticon.com/512/3898/3898082.png", u64: "https://www.google.com/search?q=InPage+Urdu+free+download+for+Windows+10+11", u32: "https://www.google.com/search?q=Pak+Urdu+Installer+download" },
+      { name: "Sumatra PDF Reader", cat: "Student", catName: "MS Office & Typing", ver: "v3.5.2", size: "14 MB", desc: "Open student notes, eBooks and PDF guides in 0.5 seconds.", icon: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Sumatra_PDF_icon.svg", u64: "https://www.sumatrapdfreader.org/dl/rel/3.5.2/SumatraPDF-3.5.2-64-install.exe", u32: "https://www.sumatrapdfreader.org/dl/rel/3.5.2/SumatraPDF-3.5.2-install.exe" },
+      { name: "PDF24 Creator (Merge & Print PDF)", cat: "Student", catName: "MS Office & Typing", ver: "v11.20", size: "38 MB", desc: "Convert Word/Excel/Images to PDF, merge notes & print assignments.", icon: "https://cdn-icons-png.flaticon.com/512/337/337946.png", u64: "https://tools.pdf24.org/products/pdf-creator/download/pdf24-creator-11.20.1.exe", u32: "https://tools.pdf24.org/products/pdf-creator/download/pdf24-creator-11.20.1.exe" },
+      { name: "Foxit PDF Reader", cat: "Student", catName: "MS Office & Typing", ver: "v2024.3", size: "65 MB", desc: "Fast PDF viewer with text highlighting, annotations & form filling.", icon: "https://upload.wikimedia.org/wikipedia/commons/5/59/Foxit_PDF_Reader_logo.svg", u64: "https://www.foxit.com/downloads/latest.html?product=Foxit-Enterprise-Reader&platform=Windows", u32: "" },
+      { name: "Anki Flashcards (Exam Memorizer)", cat: "Student", catName: "MS Office & Typing", ver: "v24.06", size: "72 MB", desc: "Smart spaced-repetition flashcard app for Pre-Medical & computer exams.", icon: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Anki-icon.svg", u64: "https://github.com/ankitects/anki/releases/download/24.06.3/anki-24.06.3-windows-qt6.exe", u32: "" },
+      { name: "Calibre E-Book Manager", cat: "Student", catName: "MS Office & Typing", ver: "v7.20", size: "155 MB", desc: "Organize, read, and convert digital textbooks (EPUB, MOBI, PDF).", icon: "https://upload.wikimedia.org/wikipedia/commons/4/45/Calibre_logo_3.png", u64: "https://download.calibre-ebook.com/7.20.0/calibre-64bit-7.20.0.msi", u32: "" },
+
+      // === 3. CODING & WEB DEVELOPMENT (16 APPS) ===
+      { name: "Visual Studio Code (HTML/CSS/Python)", cat: "Coding", catName: "Coding & Web", ver: "v1.95", size: "95 MB", desc: "No.1 code editor for HTML, CSS, JavaScript, Python, PHP & C++.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg", u64: "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user", u32: "https://code.visualstudio.com/sha/download?build=stable&os=win32-user" },
+      { name: "Python Official Compiler", cat: "Coding", catName: "Coding & Web", ver: "v3.13.0", size: "27 MB", desc: "Official Python compiler & IDLE for AI, scripts & automation.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", u64: "https://www.python.org/ftp/python/3.13.0/python-3.13.0-amd64.exe", u32: "https://www.python.org/ftp/python/3.13.0/python-3.13.0.exe" },
+      { name: "Node.js (LTS Runtime)", cat: "Coding", catName: "Coding & Web", ver: "v22.11.0", size: "29 MB", desc: "JavaScript runtime environment for backend servers and web apps.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", u64: "https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi", u32: "https://nodejs.org/dist/v20.18.0/node-v20.18.0-x86.msi" },
+      { name: "Git for Windows", cat: "Coding", catName: "Coding & Web", ver: "v2.47.0", size: "65 MB", desc: "Git version control system and Git Bash terminal for developers.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", u64: "https://github.com/git-for-windows/git/releases/download/v2.47.0.windows.2/Git-2.47.0.2-64-bit.exe", u32: "https://github.com/git-for-windows/git/releases/download/v2.47.0.windows.2/Git-2.47.0.2-32-bit.exe" },
+      { name: "GitHub Desktop", cat: "Coding", catName: "Coding & Web", ver: "Latest", size: "115 MB", desc: "Push code & host websites easily on GitHub without terminal commands.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", u64: "https://central.github.com/deployments/desktop/desktop/latest/win32", u32: "" },
+      { name: "Notepad++ Code Editor", cat: "Coding", catName: "Coding & Web", ver: "v8.7.1", size: "4.6 MB", desc: "Fast source code editor for HTML, PHP, CSS & C++.", icon: "https://upload.wikimedia.org/wikipedia/commons/6/69/Notepad%2B%2B_Logo.svg", u64: "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.7.1/npp.8.7.1.Installer.x64.exe", u32: "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.7.1/npp.8.7.1.Installer.exe" },
+      { name: "XAMPP Server (PHP/MySQL)", cat: "Coding", catName: "Coding & Web", ver: "v8.2.12", size: "149 MB", desc: "Local Apache, PHP & MySQL database server for websites.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg", u64: "https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.12/xampp-windows-x64-8.2.12-0-VS16-installer.exe/download", u32: "" },
+      { name: "Sublime Text 4", cat: "Coding", catName: "Coding & Web", ver: "Build 4180", size: "22 MB", desc: "Sophisticated text editor for code, markup, and prose.", icon: "https://upload.wikimedia.org/wikipedia/en/d/d2/Sublime_Text_3_logo.png", u64: "https://download.sublimetext.com/sublime_text_build_4180_x64_setup.exe", u32: "https://download.sublimetext.com/Sublime%20Text%20Build%203211%20Setup.exe" },
+      { name: "PyCharm Community Edition", cat: "Coding", catName: "Coding & Web", ver: "2024.2", size: "450 MB", desc: "Professional Python IDE by JetBrains for big Python projects.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg", u64: "https://download.jetbrains.com/python/pycharm-community-2024.2.4.exe", u32: "" },
+      { name: "IntelliJ IDEA Community", cat: "Coding", catName: "Coding & Web", ver: "2024.2", size: "620 MB", desc: "Top Java & Kotlin IDE for desktop and backend software development.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg", u64: "https://download.jetbrains.com/idea/ideaIC-2024.2.4.exe", u32: "" },
+      { name: "Code::Blocks C/C++ IDE", cat: "Coding", catName: "Coding & Web", ver: "v20.03", size: "145 MB", desc: "Complete C and C++ compiler IDE for college & university students.", icon: "https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg", u64: "https://sourceforge.net/projects/codeblocks/files/Binaries/20.03/Windows/codeblocks-20.03mingw-setup.exe/download", u32: "" },
+      { name: "Dev-C++ Compiler IDE", cat: "Coding", catName: "Coding & Web", ver: "v6.3", size: "48 MB", desc: "Lightweight C/C++ programming IDE for beginner students.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg", u64: "https://sourceforge.net/projects/embarcadero-devcpp/files/v6.3/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_Setup.exe/download", u32: "" },
+      { name: "Postman API Testing Tool", cat: "Coding", catName: "Coding & Web", ver: "Latest", size: "145 MB", desc: "Test REST APIs, backend routes, and JSON responses easily.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg", u64: "https://dl.pstmn.io/download/latest/win64", u32: "" },
+      { name: "FileZilla FTP Client", cat: "Coding", catName: "Coding & Web", ver: "v3.68.1", size: "12 MB", desc: "Upload HTML, PHP & website files to live hosting servers.", icon: "https://upload.wikimedia.org/wikipedia/commons/0/01/FileZilla_logo.svg", u64: "https://download.filezilla-project.org/client/FileZilla_3.68.1_win64-setup.exe", u32: "https://download.filezilla-project.org/client/FileZilla_3.68.1_win32-setup.exe" },
+      { name: "DB Browser for SQLite", cat: "Coding", catName: "Coding & Web", ver: "v3.13.1", size: "18 MB", desc: "Create, design and edit SQLite database files visually.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg", u64: "https://github.com/sqlitebrowser/sqlitebrowser/releases/download/v3.13.1/DB.Browser.for.SQLite-v3.13.1-win64.msi", u32: "https://github.com/sqlitebrowser/sqlitebrowser/releases/download/v3.13.1/DB.Browser.for.SQLite-v3.13.1-win32.msi" },
+      { name: "Android Studio", cat: "Coding", catName: "Coding & Web", ver: "Latest", size: "1.1 GB", desc: "Official IDE for building Android apps & APKs in Java/Kotlin.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg", u64: "https://developer.android.com/studio", u32: "" },
+
+      // === 4. VIDEO & AUDIO STUDIO (13 APPS) ===
+      { name: "OBS Studio", cat: "Video", catName: "Video & Audio", ver: "v30.2.3", size: "128 MB", desc: "HD screen recording and live streaming for YouTube/TikTok.", icon: "https://upload.wikimedia.org/wikipedia/commons/d/d3/OBS_Studio_Logo.svg", u64: "https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.2.3-Windows-Installer.exe", u32: "" },
+      { name: "Shotcut Video Editor", cat: "Video", catName: "Video & Audio", ver: "v24.10", size: "115 MB", desc: "Free 4K video editor with timeline, transitions & filters.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/41/Shotcut_logo.svg", u64: "https://github.com/mltframework/shotcut/releases/download/v24.10.29/shotcut-win64-241029.exe", u32: "" },
+      { name: "HandBrake Video Compressor", cat: "Video", catName: "Video & Audio", ver: "v1.8.2", size: "24 MB", desc: "Compress large MP4/MKV videos without losing HD quality.", icon: "https://upload.wikimedia.org/wikipedia/commons/d/d9/HandBrake_Icon.png", u64: "https://github.com/HandBrake/HandBrake/releases/download/1.8.2/HandBrake-1.8.2-x86_64-Win_GUI.exe", u32: "" },
+      { name: "Audacity Audio Editor", cat: "Video", catName: "Video & Audio", ver: "v3.6.4", size: "36 MB", desc: "Remove background noise and record clean voiceovers.", icon: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Audacity_Logo.svg", u64: "https://github.com/audacity/audacity/releases/download/Audacity-3.6.4/audacity-win-3.6.4-64bit.exe", u32: "https://github.com/audacity/audacity/releases/download/Audacity-3.6.4/audacity-win-3.6.4-32bit.exe" },
+      { name: "Kdenlive Pro Video Editor", cat: "Video", catName: "Video & Audio", ver: "v24.08", size: "105 MB", desc: "Multi-track professional open-source video editing suite.", icon: "https://upload.wikimedia.org/wikipedia/commons/c/c6/Kdenlive-logo.svg", u64: "https://download.kde.org/stable/kdenlive/24.08/windows/kdenlive-24.08.3.exe", u32: "" },
+      { name: "OpenShot Video Editor", cat: "Video", catName: "Video & Audio", ver: "v3.2.1", size: "190 MB", desc: "Easy-to-use video editor for YouTube, TikTok, and vlogs.", icon: "https://upload.wikimedia.org/wikipedia/commons/0/0a/OpenShot_logo.svg", u64: "https://github.com/OpenShot/openshot-qt/releases/download/v3.2.1/OpenShot-v3.2.1-x86_64.exe", u32: "https://github.com/OpenShot/openshot-qt/releases/download/v3.2.1/OpenShot-v3.2.1-x86.exe" },
+      { name: "Blender 3D & VFX Studio", cat: "Video", catName: "Video & Audio", ver: "v4.2.3", size: "330 MB", desc: "3D animation, VFX, intro making, and video editing suite.", icon: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg", u64: "https://download.blender.org/release/Blender4.2/blender-4.2.3-windows-x64.msi", u32: "" },
+      { name: "CapCut Desktop Video Editor", cat: "Video", catName: "Video & Audio", ver: "Official PC", size: "480 MB", desc: "Trending TikTok & YouTube Shorts video editor with AI captions & effects.", icon: "https://upload.wikimedia.org/wikipedia/commons/a/a0/CapCut_logo.svg", u64: "https://www.capcut.com/tools/desktop-video-editor", u32: "" },
+      { name: "DaVinci Resolve Studio", cat: "Video", catName: "Video & Audio", ver: "v19 Free", size: "3.2 GB", desc: "Hollywood-grade color grading & professional video editing software.", icon: "https://upload.wikimedia.org/wikipedia/commons/9/90/DaVinci_Resolve_17_logo.svg", u64: "https://www.blackmagicdesign.com/products/davinciresolve", u32: "" },
+      { name: "ShareX Screen Recorder & Capture", cat: "Video", catName: "Video & Audio", ver: "v16.1", size: "9.5 MB", desc: "Capture screenshots, GIFs, and screen videos with instant sharing.", icon: "https://upload.wikimedia.org/wikipedia/commons/7/75/ShareX_Logo.png", u64: "https://github.com/ShareX/ShareX/releases/download/v16.1.0/ShareX-16.1.0-setup.exe", u32: "" },
+      { name: "Greenshot Screenshot Tool", cat: "Video", catName: "Video & Audio", ver: "v1.2.10", size: "1.8 MB", desc: "Lightweight screenshot editor for tutorials, notes & documentation.", icon: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Greenshot_logo.svg", u64: "https://github.com/greenshot/greenshot/releases/download/Greenshot-RELEASE-1.2.10.6/Greenshot-INSTALLER-1.2.10.6-RELEASE.exe", u32: "" },
+      { name: "FFmpeg Media Engine", cat: "Video", catName: "Video & Audio", ver: "v7.1", size: "85 MB", desc: "Command-line audio/video converter & Python multimedia engine.", icon: "https://upload.wikimedia.org/wikipedia/commons/5/5f/FFmpeg_Logo_new.svg", u64: "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip", u32: "" },
+      { name: "LMMS Music Production Studio", cat: "Video", catName: "Video & Audio", ver: "v1.2.2", size: "35 MB", desc: "Create beats, background music & audio tracks for YouTube videos.", icon: "https://upload.wikimedia.org/wikipedia/commons/3/3a/LMMS_logo.svg", u64: "https://github.com/LMMS/lmms/releases/download/v1.2.2/lmms-1.2.2-win64.exe", u32: "https://github.com/LMMS/lmms/releases/download/v1.2.2/lmms-1.2.2-win32.exe" },
+
+      // === 5. PHOTO, GRAPHICS & PRINT SHOP (12 APPS) ===
+      { name: "GIMP (Adobe Photoshop Alternative)", cat: "Photo", catName: "Photo & Print", ver: "v2.10.38", size: "252 MB", desc: "Free Photoshop alternative for photo editing & passport photos.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/45/The_GIMP_icon_-_gnome.svg", u64: "https://download.gimp.org/gimp/v2.10/windows/gimp-2.10.38-setup.exe", u32: "https://download.gimp.org/gimp/v2.10/windows/gimp-2.10.38-setup.exe" },
+      { name: "Inkscape (CorelDRAW Alternative)", cat: "Photo", catName: "Photo & Print", ver: "v1.4", size: "130 MB", desc: "CorelDRAW & Illustrator alternative for logos, cards & flex design.", icon: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Inkscape_Logo.svg", u64: "https://media.inkscape.org/dl/resources/file/inkscape-1.4_2024-10-11_86a8ad7-x64.exe", u32: "https://media.inkscape.org/dl/resources/file/inkscape-1.3.2_2023-11-25_091e20e-x86.exe" },
+      { name: "NAPS2 Document & CNIC Scanner", cat: "Photo", catName: "Photo & Print", ver: "v7.5.1", size: "42 MB", desc: "Scan CNIC, photos and documents to PDF/JPG for print shops.", icon: "https://www.naps2.com/images/logo.png", u64: "https://github.com/cyanfish/naps2/releases/download/v7.5.1/naps2-7.5.1-win-x64.exe", u32: "https://github.com/cyanfish/naps2/releases/download/v7.5.1/naps2-7.5.1-win-x86.exe" },
+      { name: "IrfanView Photo Viewer & Print", cat: "Photo", catName: "Photo & Print", ver: "v4.67", size: "3.8 MB", desc: "Fastest photo studio batch resizer, converter, and quick print tool.", icon: "https://upload.wikimedia.org/wikipedia/en/6/6c/IrfanView_Logo.png", u64: "https://www.irfanview.info/files/iview467_x64_setup.exe", u32: "https://www.irfanview.info/files/iview467_setup.exe" },
+      { name: "Krita Digital Painting Studio", cat: "Photo", catName: "Photo & Print", ver: "v5.2.6", size: "145 MB", desc: "Professional digital painting, poster design & illustration studio.", icon: "https://upload.wikimedia.org/wikipedia/commons/7/73/Calligrakrita-base.svg", u64: "https://download.kde.org/stable/krita/5.2.6/krita-x64-5.2.6-setup.exe", u32: "" },
+      { name: "Paint.NET Image Editor", cat: "Photo", catName: "Photo & Print", ver: "v5.0.13", size: "65 MB", desc: "Fast layered image & photo editing software for Windows.", icon: "https://upload.wikimedia.org/wikipedia/commons/8/87/Paint.net_icon.png", u64: "https://github.com/paintdotnet/release/releases/download/v5.0.13/paint.net.5.0.13.install.x64.webp.exe", u32: "" },
+      { name: "Darktable RAW Photo Editor", cat: "Photo", catName: "Photo & Print", ver: "v4.8.1", size: "98 MB", desc: "Free Adobe Lightroom alternative for DSLR & wedding photography.", icon: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Darktable_icon.svg", u64: "https://github.com/darktable-org/darktable/releases/download/release-4.8.1/darktable-4.8.1-win64.exe", u32: "" },
+      { name: "RawTherapee Photo Color Studio", cat: "Photo", catName: "Photo & Print", ver: "v5.11", size: "55 MB", desc: "Studio photo color enhancement & RAW image processing tool.", icon: "https://upload.wikimedia.org/wikipedia/commons/8/86/RawTherapee_logo.svg", u64: "https://rawtherapee.com/shared/builds/windows/RawTherapee_5.11_win64.exe", u32: "" },
+      { name: "XnView MP Batch Photo Studio", cat: "Photo", catName: "Photo & Print", ver: "v1.8.2", size: "62 MB", desc: "Organize, rename, resize & convert 1000s of studio photos in one click.", icon: "https://upload.wikimedia.org/wikipedia/commons/3/3c/XnView_MP_icon.png", u64: "https://download.xnview.com/XnViewMP-win-x64.exe", u32: "https://download.xnview.com/XnViewMP-win.exe" },
+      { name: "Scribus Desktop Publishing", cat: "Photo", catName: "Photo & Print", ver: "v1.6.2", size: "92 MB", desc: "Design books, brochures, wedding cards & print layouts.", icon: "https://upload.wikimedia.org/wikipedia/commons/2/26/Scribus_logo.svg", u64: "https://sourceforge.net/projects/scribus/files/scribus/1.6.2/scribus-1.6.2-windows-x64.exe/download", u32: "" },
+      { name: "Canva Desktop App", cat: "Photo", catName: "Photo & Print", ver: "Official", size: "135 MB", desc: "Design YouTube thumbnails, posters, logos & social media posts easily.", icon: "https://upload.wikimedia.org/wikipedia/commons/0/08/Canva_icon_2021.svg", u64: "https://www.canva.com/download/windows/", u32: "" },
+      { name: "Photopea Online Photoshop", cat: "Photo", catName: "Photo & Print", ver: "Web Pro", size: "Instant", desc: "Edit PSD, AI & XD files directly in your browser without installation.", icon: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Photopea_logo.svg", u64: "https://www.photopea.com/", u32: "" },
+
+      // === 6. PC GAMING & EMULATORS (14 APPS) ===
+      { name: "Steam Gaming Client", cat: "Gaming", catName: "PC Gaming", ver: "Latest", size: "2.3 MB", desc: "Download GTA, CS2, PUBG PC and thousands of PC games.", icon: "https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg", u64: "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe", u32: "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe" },
+      { name: "Epic Games Launcher", cat: "Gaming", catName: "PC Gaming", ver: "Latest", size: "68 MB", desc: "Play Fortnite, GTA V, Rocket League & free weekly PC games.", icon: "https://upload.wikimedia.org/wikipedia/commons/3/31/Epic_Games_logo.svg", u64: "https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi", u32: "" },
+      { name: "GameLoop (PUBG Mobile PC)", cat: "Gaming", catName: "PC Gaming", ver: "Official", size: "45 MB", desc: "Official Tencent emulator to play PUBG Mobile on PC.", icon: "https://upload.wikimedia.org/wikipedia/en/2/25/GameLoop_logo.png", u64: "https://down.gameloop.com/channel/3/200315/GLP_installer_1000218453_market.exe", u32: "https://down.gameloop.com/channel/3/200315/GLP_installer_1000218453_market.exe" },
+      { name: "BlueStacks 5 Emulator", cat: "Gaming", catName: "PC Gaming", ver: "v5.21", size: "1.2 MB", desc: "Fast Android emulator for Free Fire and mobile games on PC.", icon: "https://upload.wikimedia.org/wikipedia/commons/7/75/BlueStacks_Logo.png", u64: "https://www.bluestacks.com/download.html", u32: "" },
+      { name: "LDPlayer 9 Android Emulator", cat: "Gaming", catName: "PC Gaming", ver: "v9.1", size: "2.5 MB", desc: "Ultra-fast lightweight Android gaming emulator for low-end PCs.", icon: "https://cdn-icons-png.flaticon.com/512/686/686589.png", u64: "https://www.ldplayer.net/", u32: "" },
+      { name: "PPSSPP PSP Emulator", cat: "Gaming", catName: "PC Gaming", ver: "v1.17.1", size: "42 MB", desc: "Play Tekken 6, God of War & PSP games in HD on Windows PC.", icon: "https://upload.wikimedia.org/wikipedia/commons/d/dc/PPSSPP_logo.svg", u64: "https://www.ppsspp.org/files/1_17_1/PPSSPPSetup.exe", u32: "https://www.ppsspp.org/files/1_17_1/PPSSPPSetup.exe" },
+      { name: "PCSX2 PlayStation 2 Emulator", cat: "Gaming", catName: "PC Gaming", ver: "v2.0", size: "55 MB", desc: "Play classic PS2 games (GTA San Andreas, Tekken 5, WWE) on PC.", icon: "https://upload.wikimedia.org/wikipedia/commons/5/59/PCSX2_Logo.svg", u64: "https://pcsx2.net/downloads", u32: "" },
+      { name: "RetroArch Classic Console Hub", cat: "Gaming", catName: "PC Gaming", ver: "v1.19.1", size: "185 MB", desc: "All-in-one arcade, Sega, Nintendo & retro game emulator.", icon: "https://upload.wikimedia.org/wikipedia/commons/2/23/RetroArch_logo.svg", u64: "https://buildbot.libretro.com/stable/1.19.1/windows/x86_64/RetroArch-Win64-setup.exe", u32: "" },
+      { name: "DirectX Game Fix Runtime", cat: "Gaming", catName: "PC Gaming", ver: "June 2010", size: "288 KB", desc: "Fixes missing d3dx9.dll errors in GTA Vice City and PC games.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe", u32: "https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe" },
+      { name: "Visual C++ Runtimes", cat: "Gaming", catName: "PC Gaming", ver: "2015-2022", size: "24 MB", desc: "Fixes 'VCRUNTIME140.dll missing' errors when launching PC games.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg", u64: "https://aka.ms/vs/17/release/vc_redist.x64.exe", u32: "https://aka.ms/vs/17/release/vc_redist.x86.exe" },
+      { name: "Discord Gaming Voice Chat", cat: "Gaming", catName: "PC Gaming", ver: "Latest", size: "92 MB", desc: "Voice chat, screen share & squad rooms for PUBG & PC gamers.", icon: "https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png", u64: "https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x64", u32: "" },
+      { name: "MSI Afterburner FPS Booster", cat: "Gaming", catName: "PC Gaming", ver: "v4.6.5", size: "54 MB", desc: "Monitor live FPS, CPU/GPU temperature & boost gaming performance.", icon: "https://cdn-icons-png.flaticon.com/512/906/906324.png", u64: "https://www.msi.com/Landing/afterburner/graphics-cards", u32: "" },
+      { name: "Roblox Player PC", cat: "Gaming", catName: "PC Gaming", ver: "Official", size: "120 MB", desc: "Play millions of free online multiplayer games on PC.", icon: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg", u64: "https://www.roblox.com/download", u32: "" },
+      { name: "Java Runtime (Minecraft & Apps)", cat: "Gaming", catName: "PC Gaming", ver: "Java 21", size: "160 MB", desc: "Required runtime for Minecraft Java Edition & Java desktop tools.", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", u64: "https://www.java.com/en/download/", u32: "" },
+
+      // === 7. SHOP, USB, DRIVER & SYSTEM TOOLS (15 APPS) ===
+      { name: "Free Download Manager (IDM Alt)", cat: "Shop", catName: "Shop & USB Tools", ver: "v6.24", size: "48 MB", desc: "Fast movie & software downloader with resume support.", icon: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Free_Download_Manager_icon.png", u64: "https://files2.freedownloadmanager.org/6/latest/fdm_x64_setup.exe", u32: "https://files2.freedownloadmanager.org/6/latest/fdm_x86_setup.exe" },
+      { name: "Internet Download Manager (IDM)", cat: "Shop", catName: "Shop & USB Tools", ver: "Official", size: "11 MB", desc: "World's fastest video & file download accelerator for Chrome.", icon: "https://cdn-icons-png.flaticon.com/512/724/724933.png", u64: "https://www.internetdownloadmanager.com/download.html", u32: "" },
+      { name: "Rufus (Bootable USB & SD Tool)", cat: "Shop", catName: "Shop & USB Tools", ver: "v4.6", size: "1.5 MB", desc: "Format memory cards/USBs & create bootable Windows 10/11 USBs.", icon: "https://upload.wikimedia.org/wikipedia/commons/a/a2/Rufus_4.4_icon.png", u64: "https://github.com/pbatard/rufus/releases/download/v4.6/rufus-4.6.exe", u32: "https://github.com/pbatard/rufus/releases/download/v4.6/rufus-4.6_x86.exe" },
+      { name: "Ventoy Multi-Boot USB Creator", cat: "Shop", catName: "Shop & USB Tools", ver: "v1.0.99", size: "16 MB", desc: "Put multiple Windows ISO files on a single USB flash drive.", icon: "https://upload.wikimedia.org/wikipedia/commons/8/87/Ventoy_logo.png", u64: "https://github.com/ventoy/Ventoy/releases/download/v1.0.99/ventoy-1.0.99-windows.zip", u32: "" },
+      { name: "BalenaEtcher USB Flasher", cat: "Shop", catName: "Shop & USB Tools", ver: "v1.19.25", size: "140 MB", desc: "Flash OS images to SD cards & USB drives safely and easily.", icon: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Etcher_logo.svg", u64: "https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-1.19.25.Setup.exe", u32: "" },
+      { name: "TeraCopy Fast USB Copy", cat: "Shop", catName: "Shop & USB Tools", ver: "v3.17", size: "11 MB", desc: "Copy movies & songs into memory cards 3x faster with verification.", icon: "https://www.codesector.com/images/teracopy.png", u64: "https://www.codesector.com/files/teracopy.exe", u32: "https://www.codesector.com/files/teracopy.exe" },
+      { name: "Format Factory Converter", cat: "Shop", catName: "Shop & USB Tools", ver: "v5.17", size: "102 MB", desc: "Convert movies/songs into MP4, 3GP, MP3 for mobile SD cards.", icon: "https://upload.wikimedia.org/wikipedia/en/6/65/Format_Factory_icon.png", u64: "http://public.pcfreetime.com/FFSetup5.17.0.0.exe", u32: "" },
+      { name: "qBittorrent Downloader", cat: "Shop", catName: "Shop & USB Tools", ver: "v5.0.1", size: "34 MB", desc: "Ad-free torrent downloader for fast movies and large files.", icon: "https://upload.wikimedia.org/wikipedia/commons/6/66/New_qBittorrent_Logo.svg", u64: "https://sourceforge.net/projects/qbittorrent/files/qbittorrent-win32/qbittorrent-5.0.1/qbittorrent_5.0.1_x64_setup.exe/download", u32: "" },
+      { name: "CPU-Z Hardware Info", cat: "Shop", catName: "Shop & USB Tools", ver: "v2.11", size: "2.5 MB", desc: "Check exact laptop/PC processor, RAM, motherboard & graphics specs.", icon: "https://upload.wikimedia.org/wikipedia/commons/a/a3/CPU-Z_Icon.png", u64: "https://download.cpuid.com/cpu-z/cpu-z_2.11-en.exe", u32: "https://download.cpuid.com/cpu-z/cpu-z_2.11-en.exe" },
+      { name: "GPU-Z Graphics Card Info", cat: "Shop", catName: "Shop & USB Tools", ver: "v2.60", size: "9.8 MB", desc: "Check graphics card VRAM, sensors & driver status.", icon: "https://cdn-icons-png.flaticon.com/512/2004/2004580.png", u64: "https://www.techpowerup.com/download/techpowerup-gpu-z/", u32: "" },
+      { name: "CrystalDiskInfo Hard Drive Health", cat: "Shop", catName: "Shop & USB Tools", ver: "v9.4.4", size: "6.5 MB", desc: "Check SSD & Hard Disk health percentage and temperature.", icon: "https://cdn-icons-png.flaticon.com/512/2333/2333464.png", u64: "https://sourceforge.net/projects/crystaldiskinfo/files/9.4.4/CrystalDiskInfo9_4_4.exe/download", u32: "" },
+      { name: "HWiNFO64 System Diagnostics", cat: "Shop", catName: "Shop & USB Tools", ver: "v8.12", size: "12 MB", desc: "Complete hardware diagnostic & temperature monitoring utility.", icon: "https://cdn-icons-png.flaticon.com/512/2920/2920349.png", u64: "https://www.hwinfo.com/download/", u32: "" },
+      { name: "WizTree Fast Disk Space Analyzer", cat: "Shop", catName: "Shop & USB Tools", ver: "v4.22", size: "4.8 MB", desc: "Find which files are filling up your C: drive in 2 seconds.", icon: "https://cdn-icons-png.flaticon.com/512/3767/3767084.png", u64: "https://diskanalyzer.com/files/wiztree_4_22_setup.exe", u32: "" },
+      { name: "BleachBit PC Cleaner", cat: "Shop", catName: "Shop & USB Tools", ver: "v4.6.2", size: "12 MB", desc: "Clean junk files, cache & free up disk space safely.", icon: "https://upload.wikimedia.org/wikipedia/commons/e/e7/BleachBit_logo.svg", u64: "https://download.bleachbit.org/BleachBit-4.6.2-setup.exe", u32: "" },
+      { name: "Revo Uninstaller Free", cat: "Shop", catName: "Shop & USB Tools", ver: "v2.5.5", size: "8.2 MB", desc: "Completely remove stubborn programs & leftover registry files.", icon: "https://cdn-icons-png.flaticon.com/512/1828/1828843.png", u64: "https://www.revouninstaller.com/download-free-portable.php", u32: "" },
+
+      // === 8. DAILY PC, BROWSERS & COMMUNICATION (15 APPS) ===
+      { name: "Google Chrome", cat: "Daily", catName: "Daily PC", ver: "Latest", size: "110 MB", desc: "World's most popular fast and secure web browser.", icon: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg", u64: "https://dl.google.com/chrome/install/latest/chrome_installer.exe", u32: "https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B00000000-0000-0000-0000-000000000000%7D%26lang%3Den%26browser%3D4%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers/edgedl/chrome/install/ChromeStandaloneSetup.exe" },
+      { name: "Mozilla Firefox", cat: "Daily", catName: "Daily PC", ver: "Latest", size: "62 MB", desc: "Privacy-focused high-speed international web browser.", icon: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg", u64: "https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US", u32: "https://download.mozilla.org/?product=firefox-latest-ssl&os=win&lang=en-US" },
+      { name: "Brave Browser (Ad-Free)", cat: "Daily", catName: "Daily PC", ver: "Latest", size: "105 MB", desc: "Blocks YouTube & website ads automatically with 3x faster browsing.", icon: "https://upload.wikimedia.org/wikipedia/commons/5/51/Brave_icon_lionface.png", u64: "https://laptop-updates.brave.com/latest/winx64", u32: "https://laptop-updates.brave.com/latest/winia32" },
+      { name: "Opera Browser (Free VPN)", cat: "Daily", catName: "Daily PC", ver: "Latest", size: "98 MB", desc: "Built-in free VPN, ad blocker & WhatsApp sidebar.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/49/Opera_2015_icon.svg", u64: "https://www.opera.com/computer/thanks?ni=stable&os=windows", u32: "" },
+      { name: "Microsoft Edge Browser", cat: "Daily", catName: "Daily PC", ver: "Latest", size: "115 MB", desc: "Official Microsoft browser with built-in PDF reader & Copilot.", icon: "https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg", u64: "https://www.microsoft.com/en-us/edge/download", u32: "" },
+      { name: "VLC Media Player", cat: "Daily", catName: "Daily PC", ver: "v3.0.21", size: "43 MB", desc: "Plays every video and audio format smoothly on PC.", icon: "https://upload.wikimedia.org/wikipedia/commons/e/e6/VLC_Icon.svg", u64: "https://get.videolan.org/vlc/3.0.21/win64/vlc-3.0.21-win64.exe", u32: "https://get.videolan.org/vlc/3.0.21/win32/vlc-3.0.21-win32.exe" },
+      { name: "PotPlayer 4K Media Player", cat: "Daily", catName: "Daily PC", ver: "Latest", size: "35 MB", desc: "Ultra-smooth 4K/60fps hardware-accelerated video player.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/41/PotPlayer_Logo.png", u64: "https://t1.daumcdn.net/potplayer/PotPlayer/Version/Latest/PotPlayerSetup64.exe", u32: "https://t1.daumcdn.net/potplayer/PotPlayer/Version/Latest/PotPlayerSetup.exe" },
+      { name: "KMPlayer PC", cat: "Daily", catName: "Daily PC", ver: "Latest", size: "48 MB", desc: "Popular media player supporting all subtitles & HD movie formats.", icon: "https://upload.wikimedia.org/wikipedia/commons/5/5d/KMPlayer_Logo.png", u64: "https://www.kmplayer.com/pc64x", u32: "" },
+      { name: "WinRAR Archiver", cat: "Daily", catName: "Daily PC", ver: "v7.01", size: "3.7 MB", desc: "Extract and compress .RAR and .ZIP files & games.", icon: "https://upload.wikimedia.org/wikipedia/commons/2/23/WinRAR_logo_big.png", u64: "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-701.exe", u32: "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x32-701.exe" },
+      { name: "7-Zip File Archiver", cat: "Daily", catName: "Daily PC", ver: "v24.08", size: "1.6 MB", desc: "Free ultra-lightweight extractor for 7z, ZIP, RAR & ISO.", icon: "https://upload.wikimedia.org/wikipedia/commons/2/24/7-Zip_Icon.svg", u64: "https://www.7-zip.org/a/7z2408-x64.exe", u32: "https://www.7-zip.org/a/7z2408.exe" },
+      { name: "AnyDesk Remote Desktop", cat: "Daily", catName: "Daily PC", ver: "v8.1.0", size: "5.2 MB", desc: "Connect and control any PC remotely from anywhere.", icon: "https://upload.wikimedia.org/wikipedia/commons/4/45/AnyDesk-Logo.svg", u64: "https://download.anydesk.com/AnyDesk.exe", u32: "https://download.anydesk.com/AnyDesk.exe" },
+      { name: "TeamViewer Remote Control", cat: "Daily", catName: "Daily PC", ver: "Latest", size: "45 MB", desc: "Remote technical support, file transfer & screen sharing.", icon: "https://upload.wikimedia.org/wikipedia/commons/9/93/TeamViewer_logo.svg", u64: "https://download.teamviewer.com/download/TeamViewer_Setup_x64.exe", u32: "https://download.teamviewer.com/download/TeamViewer_Setup.exe" },
+      { name: "WhatsApp Desktop PC", cat: "Daily", catName: "Daily PC", ver: "Official", size: "125 MB", desc: "Official WhatsApp for Windows with voice & video calls.", icon: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg", u64: "https://www.whatsapp.com/download", u32: "" },
+      { name: "Telegram Desktop PC", cat: "Daily", catName: "Daily PC", ver: "v5.6.3", size: "44 MB", desc: "Fast cloud messaging & large file sharing up to 2GB on PC.", icon: "https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg", u64: "https://telegram.org/dl/desktop/win64", u32: "https://telegram.org/dl/desktop/win" },
+      { name: "Zoom Workplace Meetings", cat: "Daily", catName: "Daily PC", ver: "Latest", size: "68 MB", desc: "Online classes, center lectures & HD video conferencing.", icon: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Zoom_Communications_Logo.svg", u64: "https://zoom.us/client/latest/ZoomInstallerFull.exe?archType=x64", u32: "https://zoom.us/client/latest/ZoomInstallerFull.exe" },
+
+      // === 9. ANTIVIRUS & SECURITY (20 APPS) ===
+      { name: "Malwarebytes Anti-Malware", cat: "Security", catName: "Antivirus & Security", ver: "v5.1", size: "275 MB", desc: "Remove stubborn adware, trojans, spyware and computer viruses.", icon: "https://upload.wikimedia.org/wikipedia/en/2/22/Malwarebytes_logo.svg", u64: "https://downloads.malwarebytes.com/file/mb5", u32: "" },
+      { name: "Avast Free Antivirus", cat: "Security", catName: "Antivirus & Security", ver: "Latest", size: "450 MB", desc: "Real-time virus protection, ransomware shield & Wi-Fi inspector.", icon: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Avast_Antivirus_logo_%282016%29.svg", u64: "https://www.avast.com/en-us/index#pc", u32: "" },
+      { name: "AVG Free Antivirus", cat: "Security", catName: "Antivirus & Security", ver: "Latest", size: "420 MB", desc: "Essential security against viruses, spyware, and malicious links.", icon: "https://upload.wikimedia.org/wikipedia/commons/0/07/AVG_Logo_2016.svg", u64: "https://www.avg.com/en-us/homepage#pc", u32: "" },
+      { name: "Kaspersky Free Antivirus", cat: "Security", catName: "Antivirus & Security", ver: "Latest", size: "180 MB", desc: "Award-winning lightweight antivirus engine for Windows PCs.", icon: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Kaspersky_logo_2019.svg", u64: "https://www.kaspersky.com/downloads/free-antivirus", u32: "" },
+      { name: "Bitdefender Antivirus Free", cat: "Security", catName: "Antivirus & Security", ver: "Latest", size: "20 MB", desc: "Silent, lightning-fast antivirus that stops malware without slowing PC.", icon: "https://upload.wikimedia.org/wikipedia/commons/1/1d/Bitdefender_Logo.svg", u64: "https://www.bitdefender.com/solutions/free-antivirus.html", u32: "" },
+      { name: "AdwCleaner (Adware Remover)", cat: "Security", catName: "Antivirus & Security", ver: "v8.4", size: "8.5 MB", desc: "Clean unwanted browser hijackers, popups and toolbars instantly.", icon: "https://cdn-icons-png.flaticon.com/512/2092/2092663.png", u64: "https://downloads.malwarebytes.com/file/adwcleaner", u32: "" },
+      { name: "HitmanPro Cloud Antivirus", cat: "Security", catName: "Antivirus & Security", ver: "v3.8", size: "15 MB", desc: "Second-opinion malware scanner powered by multiple cloud engines.", icon: "https://cdn-icons-png.flaticon.com/512/2910/2910795.png", u64: "https://files.surfright.nl/hitmanpro.exe", u32: "" },
+      { name: "ZoneAlarm Free Firewall", cat: "Security", catName: "Antivirus & Security", ver: "Latest", size: "12 MB", desc: "Advanced inbound and outbound firewall protection for Windows.", icon: "https://cdn-icons-png.flaticon.com/512/1006/1006551.png", u64: "https://www.zonealarm.com/software/free-firewall", u32: "" },
+      { name: "GlassWire Network Monitor", cat: "Security", catName: "Antivirus & Security", ver: "v3.3", size: "52 MB", desc: "Visualize network activity, bandwidth usage & blocked connection apps.", icon: "https://cdn-icons-png.flaticon.com/512/3208/3208720.png", u64: "https://www.glasswire.com/download/", u32: "" },
+      { name: "KeePass Password Safe", cat: "Security", catName: "Antivirus & Security", ver: "v2.57", size: "3.5 MB", desc: "Secure offline password manager to store all your logins encrypted.", icon: "https://upload.wikimedia.org/wikipedia/commons/3/37/KeePass_Logo.svg", u64: "https://sourceforge.net/projects/keepass/files/KeePass%202.x/2.57.1/KeePass-2.57.1-Setup.exe", u32: "" },
+      { name: "Bitwarden Desktop Password Manager", cat: "Security", catName: "Antivirus & Security", ver: "Latest", size: "95 MB", desc: "Open-source cloud password manager for secure browser autofill.", icon: "https://upload.wikimedia.org/wikipedia/commons/9/95/Bitwarden_logo_%282019%29.svg", u64: "https://vault.bitwarden.com/download/?app=desktop&platform=windows", u32: "" },
+      { name: "VeraCrypt Disk Encryption", cat: "Security", catName: "Antivirus & Security", ver: "v1.26.7", size: "38 MB", desc: "Encrypt USB drives, partitions or entire hard disks securely.", icon: "https://upload.wikimedia.org/wikipedia/commons/7/7b/VeraCrypt_Logo.svg", u64: "https://launchpad.net/veracrypt/trunk/1.26.7/+download/VeraCrypt%20Setup%201.26.7.exe", u32: "" },
+      { name: "NordVPN Client", cat: "Security", catName: "Antivirus & Security", ver: "Latest", size: "75 MB", desc: "High-speed encrypted VPN service for secure internet browsing.", icon: "https://cdn-icons-png.flaticon.com/512/9198/9198327.png", u64: "https://downloads.nordcdn.com/apps/windows/10/NordVPN/latest/NordVPNSetup.exe", u32: "" },
+      { name: "ProtonVPN Desktop Client", cat: "Security", catName: "Antivirus & Security", ver: "Latest", size: "68 MB", desc: "Secure Swiss VPN with unlimited free bandwidth.", icon: "https://cdn-icons-png.flaticon.com/512/9198/9198327.png", u64: "https://protonvpn.com/download/ProtonVPN_v3.2.9.exe", u32: "" },
+      { name: "ShadowExplorer", cat: "Security", catName: "Antivirus & Security", ver: "v0.9", size: "2.1 MB", desc: "Recover files encrypted by ransomware using Windows Shadow Copies.", icon: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", u64: "https://www.shadowexplorer.com/downloads/ShadowExplorer-0.9-setup.exe", u32: "" },
+      { name: "Spybot Search & Destroy", cat: "Security", catName: "Antivirus & Security", ver: "v2.9", size: "65 MB", desc: "Detect and remove spyware, tracking cookies and malware.", icon: "https://cdn-icons-png.flaticon.com/512/2910/2910795.png", u64: "https://www.safer-networking.org/", u32: "" },
+      { name: "Cisco Packet Tracer (Networking)", cat: "Security", catName: "Antivirus & Security", ver: "v8.2", size: "240 MB", desc: "Network simulation tool for CCNA students and IT networking labs.", icon: "https://cdn-icons-png.flaticon.com/512/2885/2885437.png", u64: "https://www.netacad.com/", u32: "" },
+      { name: "PuTTY SSH & Telnet Client", cat: "Security", catName: "Antivirus & Security", ver: "v0.81", size: "3.4 MB", desc: "Connect securely to remote servers, routers and VPS via SSH.", icon: "https://upload.wikimedia.org/wikipedia/commons/3/32/PuTTY_icon.svg", u64: "https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.81-installer.msi", u32: "https://the.earth.li/~sgtatham/putty/latest/w32/putty-0.81-installer.msi" }
+    ];
+
+    var selectedCat = "All";
+    var searchTimeout = null;
+
+    function setCat(cat, btn) {
+      selectedCat = cat;
+      var buttons = document.querySelectorAll(".cat-btn");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("active");
+      }
+      btn.classList.add("active");
+      handleSearch();
+    }
+
+    // --- ULTRA-FAST THROTTLED SEARCH FOR MAXIMUM PERFORMANCE ---
+    function handleSearchThrottled() {
+      if (searchTimeout) clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(handleSearch, 30);
+    }
+
+    function handleSearch() {
+      var rawQuery = document.getElementById("searchInput").value.trim();
+      var query = rawQuery.toLowerCase();
+      var banner = document.getElementById("liveWebBanner");
+
+      if (rawQuery.length > 0) {
+        banner.classList.add("show");
+        document.getElementById("liveTitle").innerText = 'Live Web Download Search for: "' + rawQuery + '"';
+        document.getElementById("googleDirectBtn").href = "https://www.google.com/search?q=" + encodeURIComponent(rawQuery + " official free download for pc windows");
+        document.getElementById("softpediaBtn").href = "https://www.google.com/search?q=" + encodeURIComponent("site:filehippo.com OR site:softpedia.com " + rawQuery + " download");
+      } else {
+        banner.classList.remove("show");
+      }
+
+      var grid = document.getElementById("appGrid");
+      var html = "";
+      var count = 0;
+      var frag = [];
+
+      for (var i = 0; i < softwareList.length; i++) {
+        var app = softwareList[i];
+        var matchCat = (selectedCat === "All" || app.cat === selectedCat);
+        var searchable = (app.name + " " + app.desc + " " + app.catName).toLowerCase();
+        var matchSearch = (searchable.indexOf(query) > -1);
+
+        if (matchCat && matchSearch) {
+          count++;
+          var buttonsHtml = "";
+          if (app.u64) {
+            buttonsHtml += '<a class="dl-btn" href="' + app.u64 + '" target="_blank" rel="noopener">Official / 64-Bit</a>';
+          }
+          if (app.u32) {
+            buttonsHtml += '<a class="dl-btn bit32" href="' + app.u32 + '" target="_blank" rel="noopener">Mirror / 32-Bit</a>';
+          }
+
+          frag.push('<div class="card">' +
+            '<div>' +
+              '<div class="card-top">' +
+                '<img class="app-icon" src="' + app.icon + '" alt="' + app.name + '" loading="lazy">' +
+                '<div class="app-meta">' +
+                  '<h3>' + app.name + '</h3>' +
+                  '<span class="tag">' + app.catName + '</span>' +
+                '</div>' +
+              '</div>' +
+              '<p class="desc">' + app.desc + '</p>' +
+            '</div>' +
+            '<div>' +
+              '<div class="info"><span>' + app.ver + '</span><span>' + app.size + '</span></div>' +
+              '<div class="btn-row">' + buttonsHtml + '</div>' +
+            '</div>' +
+          '</div>');
+        }
+      }
+
+      if (count === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;background:#0f1626;border-radius:14px;border:1px solid #1e293b;">' +
+          '<h3 style="color:#38bdf8;margin-bottom:8px;">"' + rawQuery + '" — Click Search Buttons Above!</h3>' +
+          '<p style="color:#94a3b8;font-size:0.88rem;">Click the buttons above to download <b>' + rawQuery + '</b> directly from official web sources.</p>' +
+        '</div>';
+      } else {
+        grid.innerHTML = frag.join('');
+      }
+
+      document.getElementById("counter").innerText = "Total Apps: " + count;
+    }
+
+    window.onload = function() {
+      handleSearch();
+    };
+    handleSearch();
+  </script>
+</body>
+</html>
